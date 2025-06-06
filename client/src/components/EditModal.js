@@ -23,7 +23,7 @@ const style = {
   p: 4,
 };
 
-export default function EditModal({ user, setSubmitting }) {
+export default function EditModal({ user, setSubmitting, setError }) {
   const [open, setOpen] = React.useState(false);
   const [updateUserForm, setUpdateUserForm] = useState(null);
   const handleOpen = () => setOpen(true);
@@ -39,6 +39,7 @@ export default function EditModal({ user, setSubmitting }) {
   };
 
   const handleUpdate = () => {
+    setError(false);
     if (updateUserForm?.name || updateUserForm?.zipCode) {
       setSubmitting(true);
       axios
@@ -47,6 +48,7 @@ export default function EditModal({ user, setSubmitting }) {
           zipCode: updateUserForm?.zipCode,
         })
         .catch((error) => {
+          setError(true);
           console.error("Error creating user:", error);
         });
       setOpen(false);

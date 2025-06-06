@@ -22,13 +22,14 @@ const style = {
   p: 4,
 };
 
-export default function DeleteModal({ user, setSubmitting }) {
+export default function DeleteModal({ user, setSubmitting, setError }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   if (!user) return;
 
   const handleDelete = () => {
+    setError(false);
     setSubmitting(true);
     axios
       .delete(`http://localhost:8080/users/${user.id}`)
@@ -37,6 +38,7 @@ export default function DeleteModal({ user, setSubmitting }) {
         setSubmitting(false);
       })
       .catch((err) => {
+        setError(true);
         console.error("Error deleting user:", err);
       });
     setOpen(false);

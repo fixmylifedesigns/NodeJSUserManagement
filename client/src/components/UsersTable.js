@@ -8,7 +8,7 @@ import Paper from "@mui/material/Paper";
 import DeleteModal from "./DeleteModal";
 import EditModal from "./EditModal";
 
-export default function UsersTable({ users, setSubmitting }) {
+export default function UsersTable({ users, setSubmitting, setError }) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -36,8 +36,16 @@ export default function UsersTable({ users, setSubmitting }) {
               <TableCell align="right">{user.lat}</TableCell>
               <TableCell align="right">{user.lon}</TableCell>
               <TableCell align="right">
-                <EditModal user={user} setSubmitting={setSubmitting} />
-                <DeleteModal user={user} setSubmitting={setSubmitting} />
+                <EditModal
+                  user={user}
+                  setSubmitting={setSubmitting}
+                  setError={setError}
+                />
+                <DeleteModal
+                  user={user}
+                  setSubmitting={setSubmitting}
+                  setError={setError}
+                />
               </TableCell>
             </TableRow>
           ))}

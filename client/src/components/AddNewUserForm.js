@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 
-export default function AddNewUserForm({ setSubmitting }) {
+export default function AddNewUserForm({ setSubmitting, setError }) {
   const [addUserForm, setAddUserForm] = useState({ name: "", zipCode: "" });
 
   const handleOnChange = (e) => {
@@ -17,6 +17,7 @@ export default function AddNewUserForm({ setSubmitting }) {
   };
 
   const handleSubmit = (e) => {
+    setError(false);
     e.preventDefault();
     setSubmitting(true);
     axios
@@ -27,6 +28,7 @@ export default function AddNewUserForm({ setSubmitting }) {
         setSubmitting(false);
       })
       .catch((error) => {
+        setError(true);
         console.error("Error creating user:", error);
       });
   };
@@ -66,6 +68,7 @@ export default function AddNewUserForm({ setSubmitting }) {
         endIcon={<SendIcon />}
         onClick={handleSubmit}
         style={{ alignSelf: "center" }}
+        disabled={!addUserForm.name || !addUserForm.zipCode}
       >
         Add User
       </Button>
