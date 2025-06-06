@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
+import UsersTable from './components/UsersTable.js'
 
 function App() {
   const [allUsers, getAllUsers] = useState([]);
@@ -93,6 +94,7 @@ function App() {
   return (
     <div className="App App-header">
       <header className="">{message} </header>
+      
       <form onSubmit={handleSubmit}>
         <input name="name" value={addUserForm.name} onChange={handleOnChange} />
         <input
@@ -102,7 +104,8 @@ function App() {
         />
         <button type="submit">Submit</button>
       </form>
-      <ui>
+      <UsersTable users={allUsers} setSubmitting={setSubmitting}/>
+      {/* <ui>
         {allUsers.length &&
           allUsers.map(({ name, id, lat, lon, timezone, zipCode }) => {
             return (
@@ -143,7 +146,7 @@ function App() {
               </li>
             );
           })}
-      </ui>
+      </ui> */}
     </div>
   );
 }
